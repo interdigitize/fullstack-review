@@ -15,13 +15,12 @@ class App extends React.Component {
 
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
-    axios.post('/repos', {term})
+  search (name) {
+    console.log(`${name} was searched`);
+    axios.post('/repos', {name})
       .then( response => console.log(response) )
       .catch( error => console.log(error) );
   }
-
 
 
   render () {
