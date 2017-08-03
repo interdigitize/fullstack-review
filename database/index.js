@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const Promise = require('bluebird')
+Promise.promisifyAll(mongoose);
 // mongoose.Promise = require('bluebird');
   // assert.equal(query.exec().constructor, require('bluebird'));
 
@@ -31,16 +32,11 @@ let saveRepo = (repo) => {
   newRepo.save( (err, repo) => {
     if (err) return console.error(err);
   });
-}
+};
 
-let checkExists = (username, callback) => {
-  Repo.find({
-    owner: username
-  })
-  .limit(25)
-  .exec(callback)
+let checkExists = (username) => {
+  return Repo.findAsync({ 'owner': username });
 }
-
 
 
 module.exports.saveRepo = saveRepo;
