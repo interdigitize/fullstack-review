@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 const Promise = require('bluebird')
 Promise.promisifyAll(mongoose);
-// mongoose.Promise = require('bluebird');
-  // assert.equal(query.exec().constructor, require('bluebird'));
-
-// mongoose.Promise = require('q').Promise;
-  // assert.ok(query.exec() instanceof require('q').makePromise);
 
 mongoose.connect('mongodb://localhost/fetcher');
 
@@ -19,10 +14,10 @@ let repoSchema = mongoose.Schema({
   owner: String,
   id: Number,
   name: String,
-  html_url: String,
+  url: String,
   description: String,
-  updated_at: String,
-  watchers_count: Number
+  updatedat: String,
+  watcherscount: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -34,10 +29,15 @@ let saveRepo = (repo) => {
   });
 };
 
-let checkExists = (username) => {
-  return Repo.findAsync({ 'owner': username });
+let checkExists = (checkThis) => {
+  return Repo.findAsync(checkThis);
+}
+
+let loadIt = () => {
+  return Repo.find({}).sort({'updatedat': 'desc'}).limit(25).exec();
 }
 
 
 module.exports.saveRepo = saveRepo;
 module.exports.checkExists = checkExists;
+module.exports.loadIt = loadIt;

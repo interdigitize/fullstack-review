@@ -17,12 +17,24 @@ class App extends React.Component {
   search (name) {
     console.log(`${name} was searched`);
     axios.post('/repos', {name})
-      .then( response => console.log(response) )
+      .then( response => {
+        this.setState({repos: response.data});
+        console.log(response)
+      })
       .catch( error => console.log(error) );
   }
 
+  componentDidMount() {
+    axios.get('/repos')
+      .then( response => {
+        this.setState({repos: response.data});
+        console.log(response)
+      })
+      .catch( error => console.log(error) );
+  }
 
   render () {
+
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>

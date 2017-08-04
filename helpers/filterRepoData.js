@@ -10,9 +10,9 @@ var repoFilter = function (name) {
         objToSave.id = repo.id;
         objToSave.name = repo.name;
         objToSave.description = repo.description;
-        objToSave.link = repo.html_url;
-        objToSave.updatedAt = repo.updated_at;
-        objToSave.watchCount = repo.watchers_count;
+        objToSave.url = repo.html_url;
+        objToSave.updatedat = repo.updated_at;
+        objToSave.watchcount = repo.watchers_count;
         filteredData.push(objToSave);
       })
       return filteredData;
